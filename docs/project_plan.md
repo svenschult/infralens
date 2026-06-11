@@ -1,10 +1,10 @@
-# Projektplan - Mini Mythos Platform
+# Projektplan - InfraLens Platform
 
 ## Projektziel
 
 Entwicklung einer modularen Plattform zur Analyse von Infrastruktur-, Netzwerk- und Security-Daten mit Python und KI-Unterstützung.
 
-Mini Mythos soll langfristig als Security- und Infrastructure-Analysis-Plattform dienen und praxisnahe Homelab-Umgebungen analysieren.
+InfraLens soll langfristig als Security- und Infrastructure-Analysis-Plattform dienen und praxisnahe Homelab-Umgebungen analysieren.
 
 Das Projekt kombiniert:
 
@@ -20,7 +20,7 @@ Das Projekt kombiniert:
 
 ## Projektübersicht
 
-Projektname: Mini Mythos Platform  
+Projektname: InfraLens Platform  
 Technologie: Python  
 Einsatzbereich: Infrastructure & Security Analysis  
 
@@ -75,7 +75,7 @@ Verantwortlich für:
 
 ## Aktuelle Architektur
 
-mini-mythos-platform
+infralens-platform
 │
 ├── src/
 │   ├── main.py

@@ -69,7 +69,7 @@ def create_nis2_pdf_report(
     styles = getSampleStyleSheet()
     story = []
 
-    story.append(Paragraph("Mini Mythos NIS2 Security Overview Report", styles["Title"]))
+    story.append(Paragraph("InfraLens NIS2 Security Overview Report", styles["Title"]))
     story.append(Spacer(1, 12))
 
     story.append(Paragraph("Executive Summary", styles["Heading2"]))

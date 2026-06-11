@@ -1,8 +1,8 @@
-# Mini Mythos Platform
+# InfraLens Platform
 
 Eine modulare Plattform für Infrastructure-, Netzwerk- und Security-Analyse mit Python, Automatisierung und KI-Unterstützung.
 
-Mini Mythos dient als praxisnahes Homelab- und Portfolio-Projekt mit Fokus auf:
+InfraLens dient als praxisnahes Homelab- und Portfolio-Projekt mit Fokus auf:
 
 - Infrastruktur verstehen
 - Netzwerke analysieren
@@ -41,7 +41,7 @@ Mini Mythos dient als praxisnahes Homelab- und Portfolio-Projekt mit Fokus auf:
 
 ## Projektziel
 
-Mini Mythos soll langfristig zu einer modularen Security- und Infrastructure-Analysis-Plattform ausgebaut werden.
+InfraLens soll langfristig zu einer modularen Security- und Infrastructure-Analysis-Plattform ausgebaut werden.
 
 Das Projekt kombiniert:
 
@@ -100,7 +100,7 @@ Das Projekt kombiniert:
 
 ## Architektur
 
-mini-mythos-platform
+infralens-platform
 │
 ├── src/
 │   ├── main.py
@@ -150,11 +150,11 @@ https://ollama.com
 
 Repository klonen:
 
-git clone https://github.com/DEINNAME/mini-mythos-platform
+git clone https://github.com/DEINNAME/infralens-platform
 
 Projektordner öffnen:
 
-cd mini-mythos-platform
+cd infralens-platform
 
 Abhängigkeiten installieren:
 
@@ -202,7 +202,7 @@ Keine manuelle Einrichtung erforderlich.
 
 ## Security-Ansatz
 
-Mini Mythos fokussiert sich nicht nur auf Angriffe, sondern auf das Verständnis kompletter Security-Szenarien.
+InfraLens fokussiert sich nicht nur auf Angriffe, sondern auf das Verständnis kompletter Security-Szenarien.
 
 Die Plattform analysiert:
 - mögliche Angriffspfade

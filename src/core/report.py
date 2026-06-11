@@ -32,7 +32,7 @@ def create_markdown_report(
     now = datetime.now().strftime("%d.%m.%Y %H:%M")
     risk_count = count_risks(findings)
 
-    content = "# Mini Mythos Security Assessment Report\n\n"
+    content = "# InfraLens Security Assessment Report\n\n"
     content += f"Erstellt am: {now}\n\n"
 
     content += "---\n\n"

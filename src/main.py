@@ -36,7 +36,7 @@ def main():
     print("\n[+] Initialisiere KI...")
     setup_ai()
 
-    print("\n[+] Mini Mythos Platform startet...")
+    print("\n[+] InfraLens Platform startet...")
 
     # Scan-Auswahl
     print("\n[+] Scan-Auswahl")

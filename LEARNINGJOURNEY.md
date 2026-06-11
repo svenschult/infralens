@@ -1,4 +1,4 @@
-# Mini Mythos Platform – Lern- & Entwicklungsdokumentation
+# InfraLens Platform – Lern- & Entwicklungsdokumentation
 
 ## Stichwortliste
 
@@ -36,7 +36,7 @@
 
 ## Ziel dieses Dokuments
 
-Dieses Dokument dient zur Dokumentation der bisherigen Lernfortschritte, Architekturentscheidungen und technischen Erkenntnisse innerhalb des Projekts „Mini Mythos Platform“.
+Dieses Dokument dient zur Dokumentation der bisherigen Lernfortschritte, Architekturentscheidungen und technischen Erkenntnisse innerhalb des Projekts „InfraLens Platform“.
 
 Das Projekt begann ursprünglich als kleines Pentest-Tool und entwickelte sich schrittweise zu einer modularen Security- und Infrastructure-Analysis-Plattform.
 
@@ -160,7 +160,7 @@ Das Projekt begann ursprünglich als kleines Pentest-Tool und entwickelte sich s
 
 ## Technische Inhalte
 
-* Projekt von „Pentest Assistant“ zu „Mini Mythos Platform“ umgebaut
+* Projekt von „Pentest Assistant“ zu „InfraLens Platform“ umgebaut
 * neue Modulstruktur eingeführt:
 
   * core
@@ -327,7 +327,7 @@ Das Projekt begann ursprünglich als kleines Pentest-Tool und entwickelte sich s
 
 # Aktueller Stand
 
-Mini Mythos Platform ist aktuell eine modulare Security- und Infrastructure-Analysis-Plattform mit:
+InfraLens Platform ist aktuell eine modulare Security- und Infrastructure-Analysis-Plattform mit:
 
 * Nmap-Analyse
 * Infrastruktur-Erkennung
@@ -428,7 +428,7 @@ Das Projekt hat gezeigt:
 
 # Aktueller Entwicklungsstand
 
-Mini Mythos Platform entwickelt sich zunehmend zu einer modularen Infrastructure- & Security-Analysis-Plattform mit Fokus auf:
+InfraLens Platform entwickelt sich zunehmend zu einer modularen Infrastructure- & Security-Analysis-Plattform mit Fokus auf:
 
 - Infrastruktur-Verständnis
 - Netzwerk-Analyse
