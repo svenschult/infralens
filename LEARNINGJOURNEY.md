@@ -1,5 +1,20 @@
 # InfraLens Platform – Lern- & Entwicklungsdokumentation
 
+## Rebranding
+
+Das Projekt wurde ursprünglich unter dem Namen
+"Mini Mythos Platform" entwickelt.
+
+Mit wachsendem Fokus auf Infrastruktur-, Netzwerk-
+und Security-Analysen erfolgte die Umbenennung zu:
+
+# InfraLens
+
+Der neue Name beschreibt das Projektziel besser:
+
+Infra = Infrastruktur
+Lens = Sichtbarkeit, Analyse und Verständnis
+
 ## Stichwortliste
 
 * Python

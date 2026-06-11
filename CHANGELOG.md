@@ -2,6 +2,13 @@
 
 Alle wichtigen Änderungen am Projekt werden hier dokumentiert.
 
+## Version 5.0
+
+### Geändert
+- Projektname von "Mini Mythos Platform" auf "InfraLens" geändert
+- Dokumentation vereinheitlicht
+- Branding aktualisiert
+
 ---
 
 ## Version 4.4
