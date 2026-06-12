@@ -1,4 +1,22 @@
+# Scan-Ergebnisse
+scans/*.txt
+scans/*.xml
+scans/*.gnmap
+
+# Reports / Ergebnisdateien
+reports/*.pdf
+reports/*.md
+reports/history/*
+
+# Kundendaten
+data/customers.json
+
+# Python
 __pycache__/
 *.pyc
 .venv/
-reports/*.md
+venv/
+
+# System
+.DS_Store
+Thumbs.db

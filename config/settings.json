@@ -1,0 +1,13 @@
+{
+    "scan_directory": "scans",
+    "scan_file": "scan.txt",
+    "report_directory": "reports",
+    "history_directory": "history",
+
+    "enable_ai": true,
+    "enable_nis2": true,
+
+    "default_scan_mode": "manual",
+
+    "version": "1.0"
+}
