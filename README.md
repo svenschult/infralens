@@ -14,7 +14,7 @@ InfraLens dient als praxisnahes Homelab- und Portfolio-Projekt mit Fokus auf:
 ---
 ## Lizenz
 
-Dieses Projekt steht unter der MIT License.
+Dieses Projekt steht unter der MIT License!
 ---
 
 ## Screenshots
