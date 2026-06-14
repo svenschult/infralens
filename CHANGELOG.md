@@ -2,6 +2,43 @@
 
 Alle wichtigen Änderungen am Projekt werden hier dokumentiert.
 
+## Unreleased - Refactor / Engine Architecture
+
+### Hinzugefügt
+- Engine-Architektur eingeführt
+- `runtime_engine.py` hinzugefügt
+- `customer_engine.py` hinzugefügt
+- `scan_engine.py` hinzugefügt
+- `analysis_engine.py` hinzugefügt
+- `report_engine.py` hinzugefügt
+- `README_DE.md` ergänzt
+- `ARCHITECTURE.md` ergänzt
+- `PRODUCT_VISION.md` ergänzt
+- Sprint-Dokumentation für Clean Structure ergänzt
+
+### Geändert
+- `main.py` deutlich verschlankt
+- Analyse-Logik in `analysis_engine.py` ausgelagert
+- Report-Erzeugung in `report_engine.py` ausgelagert
+- Scan-Auswahl in `scan_engine.py` ausgelagert
+- Runtime-Initialisierung in `runtime_engine.py` ausgelagert
+- Kunden-Auswahl in `customer_engine.py` ausgelagert
+- Reporting-Dateien nach `src/reporting/` verschoben
+- Kundendateien nach `src/customers/` verschoben
+- KI-Dateien nach `src/ai/` verschoben
+- Config-Dateien nach `src/config/` verschoben
+- Parser nach `src/parsing/` verschoben
+- README vollständig überarbeitet
+
+### Verbessert
+- Projektstruktur professionalisiert
+- Architektur besser auf GUI, Auditor Assistant und weitere Reporttypen vorbereitet
+- Verantwortlichkeiten klarer getrennt
+- Wartbarkeit verbessert
+- Codebasis stärker auf Produktentwicklung ausgerichtet
+
+---
+
 ## Version 5.0
 
 ### Geändert

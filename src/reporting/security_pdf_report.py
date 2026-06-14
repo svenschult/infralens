@@ -15,7 +15,7 @@ from reportlab.platypus import (
     Image
 )
 
-from core.report_charts import (
+from reporting.report_charts import (
     create_risk_distribution_chart,
     create_asset_role_chart,
     create_os_distribution_chart

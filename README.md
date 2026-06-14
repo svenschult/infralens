@@ -1,281 +1,231 @@
-# InfraLens Platform
+# 🛡️ InfraLens
 
-Eine modulare Plattform für Infrastructure-, Netzwerk- und Security-Analyse mit Python, Automatisierung und KI-Unterstützung.
+<p align="center">
+  <img src="assets/logo/infralens_logo.png" alt="InfraLens Logo" width="350">
+</p>
 
-InfraLens dient als praxisnahes Homelab- und Portfolio-Projekt mit Fokus auf:
+<p align="center">
 
-- Infrastruktur verstehen
-- Netzwerke analysieren
-- Security bewerten
-- Angriffswege nachvollziehen
-- defensive Maßnahmen ableiten
-- Automatisierung und Reporting
+**Professional Infrastructure & Security Assessment Platform**
 
----
-## Lizenz
+*Understand • Assess • Prioritize • Improve*
 
-Dieses Projekt steht unter der MIT License!
----
-
-## Screenshots
-
-### Plattform-Architektur
-
-![Architecture](docs/screenshots/current/architecture.png)
+</p>
 
 ---
 
-### Security Assessment Report
+# 🚀 Overview
 
-![Report](docs/screenshots/current/report_v4.png)
+InfraLens is a professional infrastructure and security assessment platform designed to help IT professionals and organizations analyze their networks, identify security risks and generate management-ready reports.
 
----
+Unlike traditional network scanners, InfraLens focuses on turning technical scan results into understandable business decisions.
 
-### Angriffspfad-Simulation
-
-![Attack Paths](docs/screenshots/current/attack_paths.png)
+The goal is not only to detect problems, but to explain them, prioritize them and provide actionable recommendations.
 
 ---
 
-### Automatische Zielerkennung
+# ✨ Features
 
-![Target Detection](docs/screenshots/current/target_detection.png)
+## Infrastructure
 
----
-
-## Projektziel
-
-InfraLens soll langfristig zu einer modularen Security- und Infrastructure-Analysis-Plattform ausgebaut werden.
-
-Das Projekt kombiniert:
-
-- Python-Automatisierung
-- Netzwerk-Analyse
-- Security Assessment
-- KI-Unterstützung
-- Reporting & Dokumentation
-- Homelab-Integration
+* ✅ Automatic Network Discovery
+* ✅ Asset Inventory
+* ✅ Host Detection
+* ✅ Operating System Detection
+* ✅ Service Detection
+* ✅ Infrastructure Analysis
 
 ---
 
-## Kernfunktionen
+## Security
 
-### Infrastructure Discovery
-- Analyse von Nmap-Scans
-- automatische Zielerkennung
-- Erkennung von:
-  - Hostname
-  - IP-Adresse
-  - Betriebssystem
-  - MAC-Adresse / Hersteller
-
-### Infrastructure Analysis
-- Netzwerk-Analyse
-- Host Inventory
-- Topologie-Hinweise
-- Infrastruktur-Kontext
-
-### Security Analysis
-- Risikobewertung
-- Priorisierung kritischer Dienste
-- Security Findings
-- Angriffspfad-Simulation
-
-### Defensive Recommendations
-- Hardening-Empfehlungen
-- defensive Maßnahmen
-- Security-Kontext
-
-### Automation
-- automatische KI-Initialisierung
-- Ollama-Integration
-- automatisierte Report-Erstellung
-
-### Reporting
-- Executive Summary
-- Infrastructure Overview
-- Host Inventory
-- Security Findings
-- Attack Path Simulation
-- Defensive Recommendations
-- Next Steps
+* ✅ Security Assessment
+* ✅ Risk Classification
+* ✅ Attack Path Analysis
+* ✅ Executive Action Center
+* ✅ Management Intelligence
+* ✅ InfraLens Security Index
 
 ---
 
-## Architektur
+## Reporting
 
-infralens-platform
-│
-├── src/
-│   ├── main.py
-│   │
-│   ├── core/
-│   │   ├── parser.py
-│   │   ├── report.py
-│   │   └── ai_assistant.py
-│   │
-│   ├── security/
-│   │   ├── analyzer.py
-│   │   ├── attack_paths.py
-│   │   └── defensive_recommendations.py
-│   │
-│   ├── infrastructure/
-│   │   ├── network_analysis.py
-│   │   ├── host_inventory.py
-│   │   └── topology.py
-│   │
-│   └── automation/
-│       └── setup_ai.py
-│
-├── scans/
-├── reports/
-├── docs/
-│
-├── README.md
-├── CHANGELOG.md
-├── requirements.txt
-└── .gitignore
+* ✅ Professional PDF Reports
+* ✅ Markdown Reports
+* ✅ Management Dashboard
+* ✅ Risk Charts
+* ✅ Executive Summary
+* ✅ Action Plan
 
 ---
 
-## Voraussetzungen
+## Compliance
 
-- Python 3.x
-- Nmap
-- Ollama
-
-Ollama Download:
-
-https://ollama.com
+* ✅ NIS2 Assessment
+* 🚧 ISO 27001 (planned)
+* 🚧 CIS Controls (planned)
+* 🚧 BSI Baseline Protection (planned)
 
 ---
 
-## Installation
+## Customer Management
 
-Repository klonen:
+* ✅ Customer Database
+* ✅ Project Selection
+* ✅ Customer Notes
+* 🚧 Conversation History
+* 🚧 Scan History
+* 🚧 Project Timeline
 
-git clone https://github.com/DEINNAME/infralens-platform
+---
 
-Projektordner öffnen:
+## Artificial Intelligence
 
-cd infralens-platform
+* ✅ AI Security Explanations
+* 🚧 Auditor Assistant
+* 🚧 Executive Management Summary
+* 🚧 Conversation Assistant
 
-Abhängigkeiten installieren:
+---
+
+# 🏗️ Architecture
+
+```text
+                    main.py
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+ Runtime Engine   Customer Engine   Scan Engine
+                       │
+                 Analysis Engine
+                       │
+      ┌────────────────┼────────────────┐
+      │                │                │
+ Security       Infrastructure     Compliance
+                       │
+                 Report Engine
+                       │
+     Markdown • PDF • NIS2 Reports
+```
+
+---
+
+# 📁 Project Structure
+
+```text
+src/
+
+├── ai/
+├── automation/
+├── compliance/
+├── config/
+├── customers/
+├── engines/
+├── infrastructure/
+├── parsing/
+├── reporting/
+├── security/
+
+docs/
+tests/
+```
+
+---
+
+# 📊 Current Capabilities
+
+* Professional Infrastructure Assessment
+* Executive Management Dashboard
+* Automatic Asset Inventory
+* Risk Prioritization
+* Security Index Calculation
+* Attack Path Simulation
+* NIS2 Reporting
+* Executive Action Center
+
+---
+
+# 🛣️ Roadmap
+
+## Version 1.0
+
+* Executive Action Center
+* Corporate PDF Design
+* Customer Management
+* Professional Reports
+
+---
+
+## Version 1.1
+
+* Auditor Assistant
+* AI Management Summary
+* Conversation Guide
+* Historical Scan Comparison
+
+---
+
+## Version 2.0
+
+* Graphical User Interface
+* Website Analysis
+* CVE Integration
+* Firmware Detection
+* Active Directory Assessment
+* Compliance Dashboard
+
+---
+
+## Version 3.0
+
+* Cloud Synchronization
+* Multi-Customer Management
+* Remote Assessments
+* Ticket System
+* Managed Security Features
+
+---
+
+# 🎯 Vision
+
+InfraLens is not intended to be another network scanner.
+
+Its mission is to transform technical security data into clear, understandable and actionable information for IT professionals, decision-makers and business leaders.
+
+The long-term vision is to become a complete Security Assessment Platform for small and medium-sized businesses.
+
+---
+
+# ⚙️ Installation
+
+```bash
+git clone https://github.com/<svenschult>/infralens.git
+
+cd InfraLens
 
 pip install -r requirements.txt
 
----
-
-## Nutzung
-
-### 1. Nmap-Scan erstellen
-
-Beispiel:
-
-nmap -sV -O -oN scan.txt <ZIEL-IP>
-
-Die Datei anschließend speichern unter:
-
-scans/scan.txt
-
----
-
-### 2. Plattform starten
-
-Windows:
-
 python src/main.py
-
-Linux / Kali:
-
-python3 src/main.py
+```
 
 ---
 
-## Automatische KI-Initialisierung
+# 📄 License
 
-Beim Start passiert automatisch:
-
-- Ollama wird gestartet
-- KI-Modell wird geprüft
-- Modell wird geladen (falls nötig)
-
-Keine manuelle Einrichtung erforderlich.
+This project is licensed under the MIT License.
 
 ---
 
-## Security-Ansatz
+# 👨‍💻 Developer
 
-InfraLens fokussiert sich nicht nur auf Angriffe, sondern auf das Verständnis kompletter Security-Szenarien.
+Developed by **Sven Schult**
 
-Die Plattform analysiert:
-- mögliche Angriffspfade
-- Risiken
-- Fehlkonfigurationen
-- defensive Maßnahmen
-- Infrastruktur-Kontext
-- Netzwerk-Topologie
+InfraLens is being developed with a strong focus on professional reporting, practical usability and understandable IT security for small and medium-sized businesses.
 
 ---
 
-## Geplante Erweiterungen
+# ⭐ Support
 
-### Infrastructure
-- Netzwerksegmentierung
-- Asset Discovery
-- mehrere Hosts analysieren
-- Infrastruktur-Korrelation
+If you like this project, consider giving it a ⭐ on GitHub.
 
-### Security
-- laterale Bewegungsanalyse
-- Hardening-Checks
-- erweiterte Angriffspfade
-- Schwachstellen-Korrelation
-
-### Automation
-- automatischer Nmap-Scan
-- Vergleich mehrerer Scans
-- geplante Scans
-
-### Reporting
-- PDF-Export
-- Dashboard
-- modernes Web UI
-
----
-
-## Technologien
-
-- Python
-- Nmap
-- Ollama
-- Requests
-- Git / GitHub
-
----
-
-## Projektstatus
-
-Aktive Entwicklung
-
-Aktueller Fokus:
-- modulare Architektur
-- Infrastruktur-Analyse
-- Security-Analyse
-- Homelab-Integration
-- Automatisierung
-- Reporting
-
----
-
-## Autor
-
-Sven
-
----
-
-## Hinweis
-
-Dieses Projekt dient ausschließlich zu Lern-, Analyse- und Demonstrationszwecken in kontrollierten Umgebungen.
-
-Keine Nutzung gegen fremde Systeme ohne ausdrückliche Erlaubnis.
+It helps the project become more visible and supports future development.

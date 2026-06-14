@@ -1,42 +1,18 @@
 import os
-from datetime import datetime
 
-from core.config import load_config
-from core.parser import (
-    parse_nmap_file,
-    parse_target_info,
-    parse_nmap_hosts
+from config.config import load_config
+
+from infrastructure.scan_context import create_scan_context
+
+from engines.runtime_engine import initialize_runtime
+from engines.customer_engine import select_customer
+from engines.scan_engine import select_scan_source
+from engines.report_engine import (
+    select_report_types,
+    prepare_report_paths,
+    generate_reports
 )
-from core.report import create_markdown_report
-from core.security_pdf_report import create_security_pdf_report
-
-from security.analyzer import analyze_findings
-from security.attack_paths import generate_attack_paths
-from security.action_plan import create_action_plan
-from security.management_intelligence import calculate_infralens_security_index
-from security.executive_actions import create_executive_actions
-
-from infrastructure.network_analysis import analyze_network
-from infrastructure.host_inventory import create_host_inventory
-from infrastructure.topology import generate_topology_notes
-from infrastructure.asset_discovery import discover_assets
-from infrastructure.asset_inventory import create_asset_inventory
-from infrastructure.scan_context import (
-    create_scan_context,
-    filter_scanner_from_assets
-)
-
-from compliance.nis2_mapper import (
-    map_findings_to_nis2,
-    calculate_nis2_statistics
-)
-from compliance.nis2_pdf_report import create_nis2_pdf_report
-
-from automation.setup_ai import setup_ai
-from automation.dependency_checker import run_dependency_check
-from automation.nmap_runner import run_nmap_scan
-
-from core.customer_manager import customer_menu
+from engines.analysis_engine import run_analysis
 
 
 def main():
@@ -53,15 +29,8 @@ def main():
 
     os.makedirs(report_dir, exist_ok=True)
 
-    # Systemvoraussetzungen prüfen
-    run_dependency_check()
-
-    # KI vorbereiten
-    if enable_ai:
-        print("\n[+] Initialisiere KI...")
-        setup_ai()
-    else:
-        print("\n[i] KI ist in der Konfiguration deaktiviert.")
+    # Laufzeitumgebung vorbereiten
+    initialize_runtime(enable_ai)
 
     print("\n[+] InfraLens startet...")
 
@@ -74,216 +43,57 @@ def main():
     )
 
     # Auftraggeber auswählen
-    customer = customer_menu()
+    customer = select_customer()
 
-    if customer:
-        print(
-            f"\n[+] Aktiver Auftraggeber: "
-            f"{customer['company']}"
-        )
+    # Scan-Quelle auswählen
+    input_path = select_scan_source(
+        scan_dir,
+        input_file
+    )
 
-    # Scan-Auswahl
-    print("\n[+] Scan-Auswahl")
-    print("1 - Vorhandene scan.txt verwenden")
-    print("2 - Netzwerk scannen")
-    print("3 - Beenden")
-
-    scan_choice = input("\n[?] Auswahl: ")
-
-    if scan_choice == "1":
-        print(f"[+] Verwende vorhandene Datei: {input_file}")
-
-    elif scan_choice == "2":
-        scan_output_path = os.path.join(scan_dir, input_file)
-
-        success = run_nmap_scan(scan_output_path)
-
-        if not success:
-            print("[!] Scan konnte nicht durchgeführt werden.")
-            return
-
-    elif scan_choice == "3":
-        print("[+] Programm beendet.")
+    if input_path is None:
         return
 
-    else:
-        print("[!] Ungültige Eingabe.")
+    # Report-Typen auswählen
+    report_selection = select_report_types(enable_nis2)
+
+    if report_selection is None:
         return
 
-    # Report-Auswahl
-    print("\n[+] Report-Auswahl")
-    print("1 - Normalen Security Report erstellen")
-    print("2 - NIS2 Report erstellen")
-    print("3 - Beide Reports erstellen")
-    print("4 - Beenden")
-
-    choice = input("\n[?] Auswahl: ")
-
-    create_normal_report = False
-    create_nis2_report = False
-
-    if choice == "1":
-        create_normal_report = True
-
-    elif choice == "2" and enable_nis2:
-        create_nis2_report = True
-
-    elif choice == "3" and enable_nis2:
-        create_normal_report = True
-        create_nis2_report = True
-
-    elif choice == "4":
-        print("[+] Programm beendet.")
-        return
-
-    else:
-        print("[!] Ungültige Eingabe oder Funktion deaktiviert.")
-        return
-
-    # Pfade vorbereiten
-    input_path = os.path.join(scan_dir, input_file)
-
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
-
-    history_dir = os.path.join(report_dir, history_folder)
-    os.makedirs(history_dir, exist_ok=True)
-
-    markdown_output_file = f"report_{timestamp}.md"
-    markdown_output_path = os.path.join(history_dir, markdown_output_file)
-
-    security_pdf_file = f"security_report_{timestamp}.pdf"
-    security_pdf_path = os.path.join(history_dir, security_pdf_file)
+    # Report-Pfade vorbereiten
+    report_paths = prepare_report_paths(
+        report_dir,
+        history_folder
+    )
 
     print(f"\n[+] Analysiere: {input_file}")
 
-    # Scan einlesen
-    findings = parse_nmap_file(input_path)
-    hosts = parse_nmap_hosts(input_path)
+    # Analyse durchführen
+    analysis = run_analysis(
+        input_path=input_path,
+        scan_context=scan_context,
+        enable_nis2=enable_nis2
+    )
 
-    if not findings:
+    if analysis is None:
         print("[!] Keine verwertbaren Daten gefunden.")
         return
 
-    # Zielinformationen auswerten
-    target_info = parse_target_info(input_path)
-
-    # Security-Auswertung
-    analyzed_findings = analyze_findings(findings)
-
-    # Angriffspfade erzeugen
-    attack_paths = generate_attack_paths(analyzed_findings)
-
-    # Infrastruktur-Kontext analysieren
-    network_analysis = analyze_network(target_info)
-
-    # Host-Inventar für Zielsystem
-    host_inventory = create_host_inventory(
-        target_info,
-        analyzed_findings
+    print(
+        f"\n[+] InfraLens Security Index: "
+        f"{analysis['management_intelligence']['score']}/100 "
+        f"({analysis['management_intelligence']['level']})"
     )
 
-    # Asset Discovery für bisherige Report-Struktur
-    assets = discover_assets(
-        analyzed_findings,
-        target_info
-    )
-
-    # Multi-Geräte-Inventarliste
-    raw_asset_inventory = create_asset_inventory(hosts)
-
-    # Prüfgerät aus Kundeninventar entfernen
-    asset_inventory = filter_scanner_from_assets(
-        raw_asset_inventory,
+    # Reports erzeugen
+    generate_reports(
+        report_selection,
+        report_paths,
+        analysis,
         scan_context
     )
 
-    # Maßnahmenplan erstellen
-    action_plan = create_action_plan(asset_inventory)
-
-    # Executive Action Center vorbereiten
-    executive_actions = create_executive_actions(action_plan)
-
-    # Management Intelligence berechnen
-    management_intelligence = calculate_infralens_security_index(
-        asset_inventory,
-        action_plan
-    )
-
-    print(
-        f"\n[+] InfraLens Security Index: "
-        f"{management_intelligence['score']}/100 "
-        f"({management_intelligence['level']})"
-    )
-
-    # Topologie-Hinweise erzeugen
-    topology_notes = generate_topology_notes(
-        target_info,
-        host_inventory
-    )
-
-    # NIS2-Mapping vorbereiten
-    if enable_nis2:
-        nis2_mapping = map_findings_to_nis2(
-            analyzed_findings,
-            attack_paths,
-            network_analysis,
-            host_inventory
-        )
-
-        nis2_statistics = calculate_nis2_statistics(
-            nis2_mapping
-        )
-    else:
-        nis2_mapping = None
-        nis2_statistics = None
-
-    # Normalen Security Report erstellen
-    if create_normal_report:
-        create_markdown_report(
-            analyzed_findings,
-            markdown_output_path,
-            target_info,
-            attack_paths,
-            network_analysis,
-            host_inventory,
-            topology_notes,
-            assets,
-            asset_inventory,
-            action_plan,
-            scan_context,
-            management_intelligence
-        )
-
-        create_security_pdf_report(
-            security_pdf_path,
-            target_info,
-            asset_inventory,
-            action_plan,
-            scan_context,
-            management_intelligence,
-            executive_actions
-        )
-
-        print(f"[+] Markdown Security Report erstellt: {markdown_output_path}")
-        print(f"[+] PDF Security Report erstellt: {security_pdf_path}")
-
-    # NIS2-PDF-Report erstellen
-    if create_nis2_report:
-        nis2_output_file = f"nis2_report_{timestamp}.pdf"
-
-        nis2_output_path = os.path.join(
-            history_dir,
-            nis2_output_file
-        )
-
-        create_nis2_pdf_report(
-            nis2_mapping,
-            nis2_statistics,
-            target_info,
-            nis2_output_path
-        )
-
-        print(f"[+] NIS2 PDF Report erstellt: {nis2_output_path}")
+    print("\n[+] InfraLens Vorgang abgeschlossen.")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 from datetime import datetime
-from core.ai_assistant import generate_ai_explanation
+from ai.ai_assistant import generate_ai_explanation
 
 
 def count_risks(findings):
