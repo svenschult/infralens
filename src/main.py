@@ -13,12 +13,18 @@ from core.security_pdf_report import create_security_pdf_report
 from security.analyzer import analyze_findings
 from security.attack_paths import generate_attack_paths
 from security.action_plan import create_action_plan
+from security.management_intelligence import calculate_infralens_security_index
+from security.executive_actions import create_executive_actions
 
 from infrastructure.network_analysis import analyze_network
 from infrastructure.host_inventory import create_host_inventory
 from infrastructure.topology import generate_topology_notes
 from infrastructure.asset_discovery import discover_assets
 from infrastructure.asset_inventory import create_asset_inventory
+from infrastructure.scan_context import (
+    create_scan_context,
+    filter_scanner_from_assets
+)
 
 from compliance.nis2_mapper import (
     map_findings_to_nis2,
@@ -59,6 +65,14 @@ def main():
 
     print("\n[+] InfraLens startet...")
 
+    # Scan-Kontext erstellen
+    scan_context = create_scan_context()
+
+    print(
+        f"\n[i] Prüfgerät erkannt: "
+        f"{scan_context['scanner_ip']}"
+    )
+
     # Auftraggeber auswählen
     customer = customer_menu()
 
@@ -71,7 +85,7 @@ def main():
     # Scan-Auswahl
     print("\n[+] Scan-Auswahl")
     print("1 - Vorhandene scan.txt verwenden")
-    print("2 - Eigenes Netzwerk scannen")
+    print("2 - Netzwerk scannen")
     print("3 - Beenden")
 
     scan_choice = input("\n[?] Auswahl: ")
@@ -175,10 +189,31 @@ def main():
     )
 
     # Multi-Geräte-Inventarliste
-    asset_inventory = create_asset_inventory(hosts)
+    raw_asset_inventory = create_asset_inventory(hosts)
+
+    # Prüfgerät aus Kundeninventar entfernen
+    asset_inventory = filter_scanner_from_assets(
+        raw_asset_inventory,
+        scan_context
+    )
 
     # Maßnahmenplan erstellen
     action_plan = create_action_plan(asset_inventory)
+
+    # Executive Action Center vorbereiten
+    executive_actions = create_executive_actions(action_plan)
+
+    # Management Intelligence berechnen
+    management_intelligence = calculate_infralens_security_index(
+        asset_inventory,
+        action_plan
+    )
+
+    print(
+        f"\n[+] InfraLens Security Index: "
+        f"{management_intelligence['score']}/100 "
+        f"({management_intelligence['level']})"
+    )
 
     # Topologie-Hinweise erzeugen
     topology_notes = generate_topology_notes(
@@ -214,14 +249,19 @@ def main():
             topology_notes,
             assets,
             asset_inventory,
-            action_plan
+            action_plan,
+            scan_context,
+            management_intelligence
         )
 
         create_security_pdf_report(
             security_pdf_path,
             target_info,
             asset_inventory,
-            action_plan
+            action_plan,
+            scan_context,
+            management_intelligence,
+            executive_actions
         )
 
         print(f"[+] Markdown Security Report erstellt: {markdown_output_path}")

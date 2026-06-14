@@ -46,27 +46,63 @@ def create_markdown_report(
     topology_notes,
     assets,
     asset_inventory,
-    action_plan
+    action_plan,
+    scan_context,
+    management_intelligence
 ):
     now = datetime.now().strftime("%d.%m.%Y %H:%M")
 
     risk_count = count_risks(findings)
     asset_risk_count = count_asset_risks(asset_inventory)
 
+    score = management_intelligence.get("score", 0)
+    level = management_intelligence.get("level", "Unbekannt")
+    potential_score = management_intelligence.get("potential_score", score)
+    improvement = management_intelligence.get("improvement_potential", 0)
+    summary = management_intelligence.get("summary", "")
+    deductions = management_intelligence.get("deductions", [])
+
     content = "# InfraLens Security Assessment Report\n\n"
     content += f"Erstellt am: {now}\n\n"
 
     content += "---\n\n"
 
+    # Management Summary
+    content += "## 1. Management Summary\n\n"
+    content += "### InfraLens Security Index\n\n"
+    content += f"**{score} / 100**\n\n"
+    content += f"**Bewertung:** {level}\n\n"
+    content += f"`{create_score_bar(score)}`\n\n"
+    content += f"{summary}\n\n"
+
+    content += "### Verbesserungspotenzial\n\n"
+    content += f"- Aktueller Index: {score} / 100\n"
+    content += f"- Möglicher Index nach Umsetzung: {potential_score} / 100\n"
+    content += f"- Potenzielle Verbesserung: +{improvement} Punkte\n\n"
+
+    content += "### Wichtigste Gründe für Punktabzug\n\n"
+
+    if deductions:
+        for deduction in deductions[:8]:
+            content += (
+                f"- {deduction.get('category', 'Unbekannt')}: "
+                f"-{deduction.get('points', 0)} Punkte – "
+                f"{deduction.get('reason', 'Keine Begründung')}\n"
+            )
+    else:
+        content += "- Keine relevanten Punktabzüge erkannt.\n"
+
+    content += "\n---\n\n"
+
     # Executive Summary
-    content += "## 1. Executive Summary\n\n"
+    content += "## 2. Executive Summary\n\n"
     content += (
         "Dieser Bericht basiert auf einem Netzwerk- und Service-Scan. "
         "Er bewertet erkannte Geräte, offene Dienste, Infrastruktur-Kontext, "
         "mögliche Angriffspfade und defensive Maßnahmen.\n\n"
     )
 
-    content += f"- Erkannte Geräte: {len(asset_inventory)}\n"
+    content += f"- Bewertete Geräte: {len(asset_inventory)}\n"
     content += f"- Gefundene offene Dienste: {len(findings)}\n\n"
 
     content += "### Risikoübersicht Geräte\n\n"
@@ -83,8 +119,16 @@ def create_markdown_report(
 
     content += "---\n\n"
 
+    # Scan-Kontext
+    content += "## 3. Scan-Kontext\n\n"
+    content += f"- Prüfgerät / Scan-System: {scan_context.get('scanner_ip', 'Unbekannt')}\n"
+    content += f"- Rolle: {scan_context.get('scanner_role', 'Unbekannt')}\n"
+    content += f"- Hinweis: {scan_context.get('note', 'Keine Hinweise')}\n\n"
+
+    content += "---\n\n"
+
     # Top Risiken
-    content += "## 2. Top Risiken & To-do-Liste\n\n"
+    content += "## 4. Top Risiken & To-do-Liste\n\n"
 
     top_items_found = False
 
@@ -112,7 +156,7 @@ def create_markdown_report(
     content += "---\n\n"
 
     # Maßnahmenplan
-    content += "## 3. Maßnahmenplan\n\n"
+    content += "## 5. Maßnahmenplan\n\n"
 
     if action_plan:
         for index, action in enumerate(action_plan, start=1):
@@ -126,7 +170,7 @@ def create_markdown_report(
     content += "---\n\n"
 
     # Asset Inventar
-    content += "## 4. Geräte-Inventarliste\n\n"
+    content += "## 6. Geräte-Inventarliste\n\n"
 
     if asset_inventory:
         for asset in asset_inventory:
@@ -168,7 +212,7 @@ def create_markdown_report(
     content += "---\n\n"
 
     # Infrastructure Overview
-    content += "## 5. Infrastructure Overview\n\n"
+    content += "## 7. Infrastructure Overview\n\n"
     content += f"- Primäres Ziel / erster Host: {target_info['ip']}\n"
     content += f"- Hostname: {target_info['hostname']}\n"
     content += f"- Betriebssystem: {target_info['os']}\n"
@@ -193,7 +237,7 @@ def create_markdown_report(
     content += "\n---\n\n"
 
     # Security Findings
-    content += "## 6. Security Findings\n\n"
+    content += "## 8. Security Findings\n\n"
 
     for finding in findings:
         content += f"### Port {finding['port']} - {finding['service']}\n\n"
@@ -216,7 +260,7 @@ def create_markdown_report(
     content += "---\n\n"
 
     # Attack Path Simulation
-    content += "## 7. Attack Path Simulation\n\n"
+    content += "## 9. Attack Path Simulation\n\n"
 
     if attack_paths:
         for path in attack_paths:
@@ -233,7 +277,7 @@ def create_markdown_report(
     content += "---\n\n"
 
     # Defensive Recommendations
-    content += "## 8. Defensive Recommendations\n\n"
+    content += "## 10. Defensive Recommendations\n\n"
 
     if attack_paths:
         for path in attack_paths:
@@ -249,7 +293,7 @@ def create_markdown_report(
     content += "---\n\n"
 
     # Next Steps
-    content += "## 9. Next Steps\n\n"
+    content += "## 11. Next Steps\n\n"
     content += "- Critical- und High-Risiken priorisiert bearbeiten\n"
     content += "- Veraltete Betriebssysteme ersetzen oder isolieren\n"
     content += "- Router- und Firmware-Versionen prüfen\n"
@@ -269,3 +313,10 @@ def create_markdown_report(
 
     with open(output_path, "w", encoding="utf-8") as file:
         file.write(content)
+
+
+def create_score_bar(score):
+    filled_blocks = int(score / 10)
+    empty_blocks = 10 - filled_blocks
+
+    return "█" * filled_blocks + "░" * empty_blocks
